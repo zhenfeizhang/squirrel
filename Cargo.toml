@@ -1,0 +1,30 @@
+[package]
+name = "sync_multi_sig"
+authors = [ "zhenfei <zhenfei.zhang@hotmail.com>" ]
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rayon = "1.5.0"
+cpoly = { path = "cpoly" }
+bencher = "0.1.5"
+criterion = "0.3.4"
+rand_chacha = "0.3.0"
+serde = "1.0"
+sha2 = "0.10"
+
+[dependencies.rand]
+version = "0.8"
+features = ["std_rng"]
+default-features = false
+
+
+[[bench]]
+name = "bench"
+harness = false
+
+
+[features]
+parallel = []
