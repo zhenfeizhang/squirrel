@@ -124,8 +124,8 @@ mod test {
             }
             {
                 {
-                    let r1 = SignedPoly::rand_ternary(&mut rng, 11);
-                    let r2 = SignedPoly::rand_ternary(&mut rng, 11);
+                    let r1 = SignedPoly::rand_ternary(&mut rng, 10);
+                    let r2 = SignedPoly::rand_ternary(&mut rng, 10);
                     let randomizer1: TerPolyCoeffEncoding = (&r1).into();
                     let randomizer2: TerPolyCoeffEncoding = (&r2).into();
 

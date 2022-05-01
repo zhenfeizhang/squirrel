@@ -24,8 +24,8 @@ int test_ternary_mul() {
   c2 = malloc(N);
   a = malloc(N);
   buf = malloc(2 * N);
-  b_index = malloc(22);
-  b_sign = malloc(22);
+  b_index = malloc(20);
+  b_sign = malloc(20);
 
   overhead = cpucycles_overhead();
   randombytes(seed, sizeof(seed));
@@ -36,13 +36,13 @@ int test_ternary_mul() {
       a[j] = rand() % 2;
     }
 
-    for (j = 0; j < 11; j++) {
-      b_index[j] = rand() % 256;
+    for (j = 0; j < 10; j++) {
+      b_index[j] = rand() % 512;
       b_sign[j] = 1;
     }
-    for (j = 0; j < 11; j++) {
-      b_index[j + 11] = rand() % 256;
-      b_sign[j + 11] = 0;
+    for (j = 0; j < 10; j++) {
+      b_index[j + 10] = rand() % 512;
+      b_sign[j + 10] = 0;
     }
 
     t1[i] = cpucycles_start();
@@ -136,7 +136,7 @@ int test_hots_ntt() {
   for (i = 0; i < NTESTS; ++i) {
     // a is a random poly
     for (j = 0; j < N; j++) {
-      a[j] = rand() % 10571777;
+      a[j] = rand() % 0x662801;
       a_rec[j] = a[j];
     }
 

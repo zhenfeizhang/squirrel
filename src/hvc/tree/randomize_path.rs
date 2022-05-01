@@ -9,14 +9,28 @@ use crate::{
 };
 use std::ops::{Add, AddAssign};
 
-#[derive(Clone, Debug, Default, Copy)]
+#[derive(Clone, Debug)]
 pub struct RandomizedPath {
-    pub(crate) nodes: [(
+    pub(crate) nodes: Vec<(
         [SignedPoly; SMALL_MODULUS_BITS],
         [SignedPoly; SMALL_MODULUS_BITS],
-    ); HEIGHT - 1],
+    )>,
     pub(crate) index: usize,
     pub(crate) is_randomized: bool,
+}
+
+impl Default for RandomizedPath {
+    fn default() -> Self {
+        Self {
+            nodes: [(
+                [SignedPoly::default(); SMALL_MODULUS_BITS],
+                [SignedPoly::default(); SMALL_MODULUS_BITS],
+            ); HEIGHT - 1]
+                .to_vec(),
+            index: 0,
+            is_randomized: false,
+        }
+    }
 }
 
 // todo: improve the code to avoid `clone_from_slice`
@@ -122,7 +136,7 @@ impl RandomizedPath {
         randomized_paths
             .iter()
             .skip(1)
-            .for_each(|target| res += target.clone());
+            .for_each(|target| res = &res + target);
         res
     }
 
@@ -159,14 +173,14 @@ impl RandomizedPath {
     }
 }
 
-impl Add for RandomizedPath {
-    type Output = Self;
+impl Add for &RandomizedPath {
+    type Output = RandomizedPath;
 
     // Coefficient wise additions without mod reduction.
-    fn add(self, other: Self) -> Self {
+    fn add(self, other: Self) -> RandomizedPath {
         assert_eq!(self.index, other.index);
 
-        let mut res = self;
+        let mut res = self.clone();
         res.nodes
             .iter_mut()
             .zip(other.nodes.iter())

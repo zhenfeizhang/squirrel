@@ -2,10 +2,19 @@ use crate::{hvc::hash::HVCHash, poly::SmallPoly, randomizer::Randomizers, Random
 use core::fmt;
 use std::fmt::Display;
 
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct Path {
-    pub(crate) nodes: [(SmallPoly, SmallPoly); HEIGHT - 1], // left and right nodes
+    pub(crate) nodes: Vec<(SmallPoly, SmallPoly)>, // left and right nodes
     pub(crate) index: usize,
+}
+
+impl Default for Path {
+    fn default() -> Self {
+        Self {
+            nodes: [(SmallPoly::default(), SmallPoly::default()); HEIGHT - 1].to_vec(),
+            index: 0,
+        }
+    }
 }
 
 impl Display for Path {
@@ -71,7 +80,7 @@ impl Path {
             assert_eq!(e.index, paths[0].index)
         }
 
-        let randomized_paths: Vec<_> = paths.iter().map(|x| x.into()).collect();
+        let randomized_paths: Vec<RandomizedPath> = paths.iter().map(|x| x.into()).collect();
         RandomizedPath::aggregate_with_randomizers(&randomized_paths, randomizers)
     }
 

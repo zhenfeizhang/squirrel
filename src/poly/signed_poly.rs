@@ -137,9 +137,9 @@ impl SignedPoly {
 
         while ct < half_weight {
             let index = (tmp & 0xFF) as usize;
-            tmp = tmp >> 8;
+            tmp >>= 9;
             rng_ct += 1;
-            if rng_ct == 4 {
+            if rng_ct == 3 {
                 tmp = rng.next_u32();
                 rng_ct = 0;
             }
@@ -151,9 +151,9 @@ impl SignedPoly {
         ct = 0;
         while ct < half_weight {
             let index = (tmp & 0xFF) as usize;
-            tmp = tmp >> 8;
+            tmp >>= 9;
             rng_ct += 1;
-            if rng_ct == 4 {
+            if rng_ct == 3 {
                 tmp = rng.next_u32();
                 rng_ct = 0;
             }
@@ -174,7 +174,7 @@ impl SignedPoly {
         }
         true
     }
-    
+
     pub(crate) fn is_binary(&self) -> bool {
         for &e in self.coeffs.iter() {
             if e != 0 && e != 1 {
@@ -203,7 +203,7 @@ impl SignedPoly {
     // sample a random binary polynomial
     pub fn rand_binary<R: Rng>(rng: &mut R) -> Self {
         let mut res = Self::default();
-        for i in 0..8 {
+        for i in 0..16 {
             let mut tmp = rng.next_u32();
             for j in 0..32 {
                 res.coeffs[i * 32 + j] = (tmp & 1) as i32;
@@ -222,9 +222,9 @@ impl SignedPoly {
         let mut tmp = rng.next_u32();
         while ct < weight {
             let index = (tmp & 0xFF) as usize;
-            tmp >>= 8;
+            tmp >>= 9;
             tmp_ct += 1;
-            if tmp_ct == 4 {
+            if tmp_ct == 3 {
                 tmp = rng.next_u32();
                 tmp_ct = 0;
             }
@@ -251,9 +251,9 @@ impl SignedPoly {
 
         while ct < weight {
             let index = (tmp & 0xFF) as usize;
-            tmp >>= 8;
+            tmp >>= 9;
             tmp_ct += 1;
-            if tmp_ct == 4 {
+            if tmp_ct == 3 {
                 tmp = rng.next_u32();
                 tmp_ct = 0;
             }
@@ -302,7 +302,7 @@ impl SignedPoly {
             let tmp = rng.next_u32();
             if res.coeffs[(tmp % N as u32) as usize] == 0 {
                 ct += 1;
-                if (tmp >> 8) & 1 == 1 {
+                if (tmp >> 9) & 1 == 1 {
                     res.coeffs[(tmp % N as u32) as usize] = 1;
                 } else {
                     res.coeffs[(tmp % N as u32) as usize] = -1;
@@ -349,7 +349,7 @@ mod test {
     #[test]
     fn test_ter_mul() {
         let mut rng = ChaCha20Rng::from_seed([0u8; 32]);
-        let half_weight = 11;
+        let half_weight = 10;
 
         for _ in 0..10 {
             let ter_poly = SignedPoly::rand_ternary(&mut rng, half_weight);

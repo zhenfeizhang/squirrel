@@ -49,8 +49,8 @@ impl HotsPK {
         let mut agg_pk = pk_and_randomizer[0].0;
 
         for (pk, _r) in pk_and_randomizer.iter().skip(1) {
-            agg_pk.v0 = agg_pk.v0 + pk.v0;
-            agg_pk.v1 = agg_pk.v1 + pk.v1;
+            agg_pk.v0 += pk.v0;
+            agg_pk.v1 += pk.v1;
         }
         agg_pk
     }

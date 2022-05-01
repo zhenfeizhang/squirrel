@@ -68,6 +68,7 @@ impl HomomorphicOneTimeSignature for HOTS {
     type Signature = HotsSig;
 
     fn setup<R: Rng>(rng: &mut R) -> Self::Param {
+        println!("here");
         let mut a = [LargeNTTPoly::default(); GAMMA];
         a.iter_mut()
             .for_each(|x| *x = LargeNTTPoly::from(&LargePoly::rand_poly(rng)));

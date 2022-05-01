@@ -3,3 +3,4 @@ Cargo.lock
 .vscode
 *.o
 cpoly/c/test
+cpoly/target

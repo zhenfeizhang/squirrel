@@ -62,7 +62,7 @@ impl MultiSig for SMSigScheme {
         //     },
         // )
 
-        let mut pk_digests = vec![SmallPoly::default(); 1 << HEIGHT - 1];
+        let mut pk_digests = vec![SmallPoly::default(); 1 << (HEIGHT - 1)];
 
         #[cfg(not(feature = "parallel"))]
         pk_digests.iter_mut().enumerate().for_each(|(index, pkd)| {
@@ -99,6 +99,8 @@ impl MultiSig for SMSigScheme {
             hots_pk: (&hots_pk).into(),
             hots_sig,
         }
+        // // SMSignature::default()
+        // todo!()
     }
 
     fn verify(pk: &Self::PK, message: &[u8], sig: &Self::Signature, pp: &Self::Param) -> bool {
@@ -111,7 +113,7 @@ impl MultiSig for SMSigScheme {
 
         // check hots public key membership
         let path = Path::from(&sig.path);
-        if !path.verify(&pk, &pp.hvc_hasher) {
+        if !path.verify(pk, &pp.hvc_hasher) {
             return false;
         }
         let pk_digest = hots_pk.digest(&pp.hots_hasher);
@@ -134,7 +136,7 @@ impl MultiSig for SMSigScheme {
         let agg_sig = HotsSig::aggregate_with_randomizers(&hots_sigs, &randomizers);
 
         // aggregate the membership proof
-        let membership_proofs: Vec<RandomizedPath> = sigs.iter().map(|x| x.path).collect();
+        let membership_proofs: Vec<RandomizedPath> = sigs.iter().map(|x| x.path.clone()).collect();
         let agg_proof =
             RandomizedPath::aggregate_with_randomizers(&membership_proofs, &randomizers);
         Self::Signature {
@@ -177,6 +179,7 @@ mod test {
         let message = "this is the message to sign";
         let mut seed = [0u8; 32];
         let mut rng = ChaCha20Rng::from_seed(seed);
+
         let pp = SMSigScheme::setup(&mut rng);
 
         for _ in 0..10 {

@@ -5,16 +5,16 @@ use criterion::Criterion;
 use rand::{RngCore, SeedableRng};
 use rand_chacha::ChaCha20Rng;
 use sync_multi_sig::{
-    HVCHash, LargeNTTPoly, LargePoly, MultiSig, Path, RandomizedPath, Randomizers, SMSigScheme,
-    SignedPoly, SmallNTTPoly, SmallPoly, TerPolyCoeffEncoding, Tree, ALPHA, HEIGHT,
-    SMALL_MODULUS_BITS, HOTSHash,
+    HOTSHash, HVCHash, LargeNTTPoly, LargePoly, MultiSig, Path, RandomizedPath, Randomizers,
+    SMSigScheme, SignedPoly, SmallNTTPoly, SmallPoly, TerPolyCoeffEncoding, Tree, ALPHA, HEIGHT,
+    SMALL_MODULUS_BITS,
 };
 
 criterion_main!(bench);
 criterion_group!(
     bench,
     // bench_smsig,
-    // bench_smsig_agg,    
+    // bench_smsig_agg,
     bench_hash,
     bench_ter_poly,
     bench_hvc_ntt,
@@ -26,7 +26,7 @@ criterion_group!(
 
 fn bench_ter_poly(c: &mut Criterion) {
     let mut rng = ChaCha20Rng::from_seed([0u8; 32]);
-    let weight = 11;
+    let weight = 10;
     let num_tests = 1000;
     let bin_polys: Vec<SignedPoly> = (0..num_tests)
         .map(|_| SignedPoly::rand_binary(&mut rng))
@@ -176,7 +176,7 @@ fn bench_hash(c: &mut Criterion) {
 
     let hasher = HOTSHash::init(&mut rng);
     let inputs: Vec<Vec<SignedPoly>> = (0..num_tests)
-        .map(|_| (0..48).map(|_| SignedPoly::rand_binary(&mut rng)).collect())
+        .map(|_| (0..46).map(|_| SignedPoly::rand_binary(&mut rng)).collect())
         .collect();
     let bench_str = format!("{} hots_hash digests", num_tests);
     bench_group.bench_function(bench_str, move |b| {

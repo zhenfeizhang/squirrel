@@ -144,7 +144,7 @@ impl SmallPoly {
         let mut res = binary_polys[SMALL_MODULUS_BITS - 1];
         for binary_poly in binary_polys.iter().rev().skip(1) {
             for (res, &base) in res.coeffs.iter_mut().zip(binary_poly.coeffs.iter()) {
-                *res = *res << 1;
+                *res <<= 1;
                 *res += base;
             }
         }
@@ -241,7 +241,7 @@ impl Mul for SmallNTTPoly {
         res
     }
 }
- 
+
 fn lift(a: i32) -> u16 {
     (a % MODULUS as i32 + MODULUS as i32) as u16 % MODULUS
 }

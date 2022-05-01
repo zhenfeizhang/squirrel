@@ -37,6 +37,7 @@ pub trait HomomorphicVectorCommitment {
     ) -> Self::AggregatedProof;
 }
 
+#[allow(clippy::upper_case_acronyms)]
 pub struct HVC(pub(crate) Tree);
 
 impl HomomorphicVectorCommitment for HVC {

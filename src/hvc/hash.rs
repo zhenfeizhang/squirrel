@@ -122,8 +122,8 @@ mod test {
                 let decomposed_poly1 = poly1.decompose();
                 let poly2 = SmallPoly::rand_poly(&mut rng);
                 let decomposed_poly2 = poly2.decompose();
-                let r1 = SignedPoly::rand_ternary(&mut rng, 11);
-                let r2 = SignedPoly::rand_ternary(&mut rng, 11);
+                let r1 = SignedPoly::rand_ternary(&mut rng, 10);
+                let r2 = SignedPoly::rand_ternary(&mut rng, 10);
                 let randomizer1: TerPolyCoeffEncoding = (&r1).into();
                 let randomizer2: TerPolyCoeffEncoding = (&r2).into();
                 let decomposed_poly1: Vec<SignedPoly> = decomposed_poly1
@@ -144,8 +144,8 @@ mod test {
                 assert_eq!(poly, poly_rec);
             }
             {
-                let r1 = SignedPoly::rand_ternary(&mut rng, 11);
-                let r2 = SignedPoly::rand_ternary(&mut rng, 11);
+                let r1 = SignedPoly::rand_ternary(&mut rng, 10);
+                let r2 = SignedPoly::rand_ternary(&mut rng, 10);
                 let randomizer1: TerPolyCoeffEncoding = (&r1).into();
                 let randomizer2: TerPolyCoeffEncoding = (&r2).into();
 

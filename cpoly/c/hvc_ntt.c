@@ -1,4 +1,4 @@
-// NTT functions for small ring with q = 12289 and n = 256
+// NTT functions for small ring with q = 12289 and n = 512
 #include "params.h"
 #include <stdint.h>
 
@@ -217,7 +217,7 @@ void hvc_ntt(uint16_t *p) {
   uint16_t u, v, s;
 
   t = N;
-  for (l = 0; l < 8; l++) {
+  for (l = 0; l < 9; l++) {
     m = 1 << l;
     ht = t >> 1;
     i = 0;
@@ -273,6 +273,6 @@ void hvc_inv_ntt(uint16_t *p) {
   }
 
   for (i = 0; i < N; i++) {
-    p[i] = (uint16_t)(((uint32_t)p[i]) * 12241 % 12289);
+    p[i] = (uint16_t)(((uint32_t)p[i]) * 12265 % 12289);
   }
 }

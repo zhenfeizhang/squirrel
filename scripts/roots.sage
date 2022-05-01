@@ -18,9 +18,9 @@ def reverse_bits(i, n):
     return res
 
 def print_hots_ntt():
-    q_hots = 10571777
-    while q_hots%4096!=1:
-        q_hots = next_prime(q_hots)
+    q_hots = 0x662801
+#    while q_hots%4096!=1:
+#        q_hots = next_prime(q_hots)
 
     P.<x> = PolynomialRing(Zmod(q_hots))
     f = P(x^1024+1)
@@ -35,9 +35,9 @@ def print_hots_ntt():
     print()
 
 def print_hots_inv_ntt():
-    q_hots = 10571777
-    while q_hots%4096!=1:
-        q_hots = next_prime(q_hots)
+    q_hots = 0x662801
+#    while q_hots%4096!=1:
+#        q_hots = next_prime(q_hots)
 
     P.<x> = PolynomialRing(Zmod(q_hots))
     f = P(x^1024+1)

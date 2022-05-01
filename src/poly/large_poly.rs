@@ -144,7 +144,7 @@ impl LargePoly {
         let mut res = binary_polys[LARGE_MODULUS_BITS - 1];
         for binary_poly in binary_polys.iter().rev().skip(1) {
             for (res, &base) in res.coeffs.iter_mut().zip(binary_poly.coeffs.iter()) {
-                *res = *res << 1;
+                *res <<= 1;
                 *res += base;
             }
         }
