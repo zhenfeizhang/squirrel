@@ -23,7 +23,7 @@ pub const LARGE_MODULUS: u32 = 28930049;
 pub const LARGE_SAMPLE_THRESHOLD: u32 = 4281647252;
 
 // log(q) for HOTS modulus
-pub(crate) const LARGE_MODULUS_BITS: usize = 25;
+pub const LARGE_MODULUS_BITS: usize = 25;
 
 // dimension of secret keys in OTS
 pub(crate) const GAMMA: usize = 44;
