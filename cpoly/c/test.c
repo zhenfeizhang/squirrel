@@ -136,7 +136,7 @@ int test_hots_ntt() {
   for (i = 0; i < NTESTS; ++i) {
     // a is a random poly
     for (j = 0; j < N; j++) {
-      a[j] = rand() % 28840961;
+      a[j] = rand() % 28930049;
       a_rec[j] = a[j];
     }
 

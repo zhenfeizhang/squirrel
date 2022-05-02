@@ -70,7 +70,7 @@ impl AddAssign for SmallPoly {
         self.coeffs
             .iter_mut()
             .zip(other.coeffs)
-            .for_each(|(x, y)| *x = (*x + y) % MODULUS)
+            .for_each(|(x, y)| *x = ((*x as u32 + y as u32) % MODULUS as u32) as u16)
     }
 }
 
@@ -209,7 +209,7 @@ impl Add for SmallNTTPoly {
             .iter_mut()
             .zip(self.coeffs.iter().zip(other.coeffs.iter()))
         {
-            *e = (f + g) % MODULUS
+            *e = ((*f as u32 + *g as u32) % MODULUS as u32) as u16
         }
 
         res

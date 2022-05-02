@@ -17,10 +17,10 @@ pub const SMALL_SAMPLE_THRESHOLD: u32 = 4294910223;
 pub const HEIGHT: usize = 21;
 
 // q for the larger ring, HOTS modulus
-pub const LARGE_MODULUS: u32 = 28840961;
+pub const LARGE_MODULUS: u32 = 28930049;
 
 // the largest multiple of q that is smaller than 2^32
-pub const LARGE_SAMPLE_THRESHOLD: u32 = 4268462228;
+pub const LARGE_SAMPLE_THRESHOLD: u32 = 4281647252;
 
 // log(q) for HOTS modulus
 pub(crate) const LARGE_MODULUS_BITS: usize = 25;
