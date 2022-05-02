@@ -172,14 +172,14 @@ impl Default for SmallNTTPoly {
 }
 
 impl From<&SignedPoly> for SmallNTTPoly {
-    // convert poly into its ntt form. Requires that coefficients are between 0 and 12289
+    // convert poly into its ntt form. Requires that coefficients are between 0 and 61441
     fn from(poly: &SignedPoly) -> Self {
         (&SmallPoly::from(poly)).into()
     }
 }
 
 impl From<&SmallPoly> for SmallNTTPoly {
-    // convert poly into its ntt form. Requires that coefficients are between 0 and 12289
+    // convert poly into its ntt form. Requires that coefficients are between 0 and 61441
     fn from(poly: &SmallPoly) -> Self {
         let mut coeffs = poly.coeffs;
         unsafe {

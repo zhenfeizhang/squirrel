@@ -5,7 +5,7 @@ pub const N: usize = 512;
 pub const ALPHA: usize = 20;
 
 // q for small ring, HVC modulus
-pub const SMALL_MODULUS: u16 = 12289;
+pub const SMALL_MODULUS: u16 = 61441;
 
 // log(q) for HVC modulus
 pub const SMALL_MODULUS_BITS: usize = 14;
@@ -17,7 +17,7 @@ pub const SMALL_SAMPLE_THRESHOLD: u32 = 4294956344;
 pub const HEIGHT: usize = 21;
 
 // q for the larger ring, HOTS modulus
-pub const LARGE_MODULUS: u32 = 0x662801;
+pub const LARGE_MODULUS: u32 = 28840961;
 
 // the largest multiple of q that is smaller than 2^32
 pub const LARGE_SAMPLE_THRESHOLD: u32 = 4291439233;

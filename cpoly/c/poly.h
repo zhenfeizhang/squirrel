@@ -21,10 +21,10 @@ int ternary_mul(
 
 
 /// convert a polynomial into its NTT form
-void hvc_ntt(uint16_t p[N]);
+void hvc_ntt(uint32_t p[N]);
 
 /// convert an NTT form polynomial into its integer form
-void hvc_inv_ntt(uint16_t p[N]);   
+void hvc_inv_ntt(uint32_t p[N]);   
 
 
 /// convert a polynomial into its NTT form

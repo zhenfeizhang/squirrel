@@ -3,7 +3,7 @@ Parameters and benchmark results
 
 # rho = 1024; rho = 21
 
-- q_hvc = 12289
+- q_hvc = 61441
 - q_hots = 6694913
 - alpha = 20
 - beta_s = 44
