@@ -1,6 +1,5 @@
 [package]
 name = "sync_multi_sig"
-authors = [ "zhenfei <zhenfei.zhang@hotmail.com>" ]
 version = "0.1.0"
 edition = "2021"
 
