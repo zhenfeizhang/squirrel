@@ -165,8 +165,8 @@ int test_hots_ntt() {
 }
 
 int main(void) {
-  // test_ternary_mul();
+  test_ternary_mul();
   test_hvc_ntt();
-  // test_hots_ntt();
+  test_hots_ntt();
   return 0;
 }

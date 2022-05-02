@@ -2262,11 +2262,11 @@ extern "C" {
 }
 extern "C" {
     #[doc = " convert a polynomial into its NTT form"]
-    pub fn hvc_ntt(p: *mut u32);
+    pub fn hvc_ntt(p: *mut u16);
 }
 extern "C" {
     #[doc = " convert an NTT form polynomial into its integer form"]
-    pub fn hvc_inv_ntt(p: *mut u32);
+    pub fn hvc_inv_ntt(p: *mut u16);
 }
 extern "C" {
     #[doc = " convert a polynomial into its NTT form"]

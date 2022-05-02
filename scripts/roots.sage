@@ -23,7 +23,7 @@ def print_hots_ntt():
 #        q_hots = next_prime(q_hots)
 
     P.<x> = PolynomialRing(Zmod(q_hots))
-    f = P(x^1024+1)
+    f = P(x^512+1)
     r = f.roots()[0][0]
     r_inv = 1/r
     print(r)
@@ -40,10 +40,10 @@ def print_hots_inv_ntt():
 #        q_hots = next_prime(q_hots)
 
     P.<x> = PolynomialRing(Zmod(q_hots))
-    f = P(x^1024+1)
+    f = P(x^512+1)
     r = f.roots()[0][0]
     r_inv = 1/r
-    print(r)
+    print(r_inv)
 
     for i in range (1024):
         e = reverse_bits(ZZ(i), 10)
@@ -52,7 +52,12 @@ def print_hots_inv_ntt():
 
 def print_hvc_ntt():
     q_hvc = 61441
-    r = Zmod(q_hvc)(61)
+#    r = Zmod(q_hvc)(61)
+    P.<x> = PolynomialRing(Zmod(q_hvc))
+    f = P(x^512+1)
+    r = f.roots()[0][0]
+    r_inv = 1/r
+    print(r)
 
     for i in range (1024):
         e = reverse_bits(ZZ(i), 10)
@@ -62,7 +67,12 @@ def print_hvc_ntt():
 
 def print_hvc_inv_ntt():
     q_hvc = 61441
-    r_inv = Zmod(q_hvc)(13094)
+#    r = Zmod(q_hvc)(61)
+    P.<x> = PolynomialRing(Zmod(q_hvc))
+    f = P(x^512+1)
+    r = f.roots()[0][0]
+    r_inv = 1/r
+    print(r_inv)
 
     for i in range (1024):
         e = reverse_bits(ZZ(i), 10)
