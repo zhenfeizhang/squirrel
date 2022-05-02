@@ -90,15 +90,15 @@ impl SignedPoly {
     // slow. only used for correctness checking
     #[cfg(test)]
     pub(crate) fn schoolbook(a: &Self, b: &Self, q: i32) -> Self {
-        let mut buf = [0i32; N * 2];
+        let mut buf = [0i64; N * 2];
         let mut c = [0; N];
         for i in 0..N {
             for j in 0..N {
-                buf[i + j] += a.coeffs[i] * b.coeffs[j] % q;
+                buf[i + j] += a.coeffs[i] as i64 * b.coeffs[j] as i64 % q as i64;
             }
         }
         for i in 0..N {
-            c[i] = (buf[i] - buf[i + N]) % q;
+            c[i] = ((buf[i] - buf[i + N]) % q as i64) as i32;
         }
         Self { coeffs: c }
     }

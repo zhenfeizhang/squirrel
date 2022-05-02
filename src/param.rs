@@ -8,10 +8,10 @@ pub const ALPHA: usize = 20;
 pub const SMALL_MODULUS: u16 = 61441;
 
 // log(q) for HVC modulus
-pub const SMALL_MODULUS_BITS: usize = 14;
+pub const SMALL_MODULUS_BITS: usize = 16;
 
 // the largest multiple of q that is smaller than 2^32
-pub const SMALL_SAMPLE_THRESHOLD: u32 = 4294956344;
+pub const SMALL_SAMPLE_THRESHOLD: u32 = 4294910223;
 
 // height of the tree for the HVC scheme
 pub const HEIGHT: usize = 21;
@@ -20,13 +20,13 @@ pub const HEIGHT: usize = 21;
 pub const LARGE_MODULUS: u32 = 28840961;
 
 // the largest multiple of q that is smaller than 2^32
-pub const LARGE_SAMPLE_THRESHOLD: u32 = 4291439233;
+pub const LARGE_SAMPLE_THRESHOLD: u32 = 4268462228;
 
 // log(q) for HOTS modulus
-pub(crate) const LARGE_MODULUS_BITS: usize = 23;
+pub(crate) const LARGE_MODULUS_BITS: usize = 25;
 
 // dimension of secret keys in OTS
-pub(crate) const GAMMA: usize = 41;
+pub(crate) const GAMMA: usize = 44;
 
 // norm bound for second component of HOTS secret key
 // Also the number of non-zero entries for hash of message
