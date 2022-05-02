@@ -23,7 +23,7 @@ def print_hots_ntt():
 #        q_hots = next_prime(q_hots)
 
     P.<x> = PolynomialRing(Zmod(q_hots))
-    f = P(x^512+1)
+    f = P(x^1024+1)
     r = f.roots()[0][0]
     r_inv = 1/r
     print(r)
@@ -40,7 +40,7 @@ def print_hots_inv_ntt():
 #        q_hots = next_prime(q_hots)
 
     P.<x> = PolynomialRing(Zmod(q_hots))
-    f = P(x^512+1)
+    f = P(x^1024+1)
     r = f.roots()[0][0]
     r_inv = 1/r
     print(r)
