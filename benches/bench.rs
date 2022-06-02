@@ -61,7 +61,7 @@ fn smsig() {
 
     let mut sigs = Vec::new();
     let mut pks = Vec::new();
-    for _ in 0..1000 {
+    for _ in 0..4096 {
         pks.push(pk);
         sigs.push(sig.clone());
     }
