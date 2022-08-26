@@ -7,7 +7,7 @@ use rand_chacha::ChaCha20Rng;
 use sync_multi_sig::{
     HOTSHash, HVCHash, LargeNTTPoly, LargePoly, MultiSig, Path, RandomizedPath, Randomizers,
     SMSigScheme, SignedPoly, SmallNTTPoly, SmallPoly, TerPolyCoeffEncoding, Tree, ALPHA, HEIGHT,
-    SMALL_MODULUS_BITS,
+    SMALL_MODULUS_BITS, LARGE_MODULUS_BITS,
 };
 
 criterion_main!(bench);
@@ -160,7 +160,7 @@ fn bench_hash(c: &mut Criterion) {
     let num_tests = 1000;
     let hasher = HVCHash::init(&mut rng);
     let inputs: Vec<Vec<SmallPoly>> = (0..num_tests)
-        .map(|_| (0..28).map(|_| SmallPoly::rand_poly(&mut rng)).collect())
+        .map(|_| (0..SMALL_MODULUS_BITS<<1).map(|_| SmallPoly::rand_poly(&mut rng)).collect())
         .collect();
 
     let mut bench_group = c.benchmark_group("hash");
@@ -176,7 +176,7 @@ fn bench_hash(c: &mut Criterion) {
 
     let hasher = HOTSHash::init(&mut rng);
     let inputs: Vec<Vec<SignedPoly>> = (0..num_tests)
-        .map(|_| (0..46).map(|_| SignedPoly::rand_binary(&mut rng)).collect())
+        .map(|_| (0..LARGE_MODULUS_BITS<<1).map(|_| SignedPoly::rand_binary(&mut rng)).collect())
         .collect();
     let bench_str = format!("{} hots_hash digests", num_tests);
     bench_group.bench_function(bench_str, move |b| {

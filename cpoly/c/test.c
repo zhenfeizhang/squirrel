@@ -90,7 +90,7 @@ int test_hvc_ntt() {
   for (i = 0; i < NTESTS; ++i) {
     // a is a random poly
     for (j = 0; j < N; j++) {
-      a[j] = rand() % 12289;
+      a[j] = rand() % 61441;
       a_rec[j] = a[j];
     }
 
@@ -136,7 +136,7 @@ int test_hots_ntt() {
   for (i = 0; i < NTESTS; ++i) {
     // a is a random poly
     for (j = 0; j < N; j++) {
-      a[j] = rand() % 0x662801;
+      a[j] = rand() % 28930049;
       a_rec[j] = a[j];
     }
 

@@ -70,7 +70,7 @@ impl AddAssign for SmallPoly {
         self.coeffs
             .iter_mut()
             .zip(other.coeffs)
-            .for_each(|(x, y)| *x = (*x + y) % MODULUS)
+            .for_each(|(x, y)| *x = ((*x as u32 + y as u32) % MODULUS as u32) as u16)
     }
 }
 
@@ -88,15 +88,15 @@ impl SmallPoly {
     // slow. only used for correctness checking
     #[cfg(test)]
     pub(crate) fn schoolbook(a: &Self, b: &Self) -> Self {
-        let mut buf = [0i32; N * 2];
+        let mut buf = [0i64; N * 2];
         let mut c = [0; N];
         for i in 0..N {
             for j in 0..N {
-                buf[i + j] += (a.coeffs[i] as i32) * (b.coeffs[j] as i32) % (MODULUS as i32);
+                buf[i + j] += (a.coeffs[i] as i64) * (b.coeffs[j] as i64) % (MODULUS as i64);
             }
         }
         for i in 0..N {
-            c[i] = lift(buf[i] - buf[i + N]);
+            c[i] = lift(((buf[i] - buf[i + N]) % MODULUS as i64) as i32);
         }
         Self { coeffs: c }
     }
@@ -172,14 +172,14 @@ impl Default for SmallNTTPoly {
 }
 
 impl From<&SignedPoly> for SmallNTTPoly {
-    // convert poly into its ntt form. Requires that coefficients are between 0 and 12289
+    // convert poly into its ntt form. Requires that coefficients are between 0 and 61441
     fn from(poly: &SignedPoly) -> Self {
         (&SmallPoly::from(poly)).into()
     }
 }
 
 impl From<&SmallPoly> for SmallNTTPoly {
-    // convert poly into its ntt form. Requires that coefficients are between 0 and 12289
+    // convert poly into its ntt form. Requires that coefficients are between 0 and 61441
     fn from(poly: &SmallPoly) -> Self {
         let mut coeffs = poly.coeffs;
         unsafe {
@@ -209,7 +209,7 @@ impl Add for SmallNTTPoly {
             .iter_mut()
             .zip(self.coeffs.iter().zip(other.coeffs.iter()))
         {
-            *e = (f + g) % MODULUS
+            *e = ((*f as u32 + *g as u32) % MODULUS as u32) as u16
         }
 
         res
@@ -219,7 +219,7 @@ impl Add for SmallNTTPoly {
 impl AddAssign for SmallNTTPoly {
     fn add_assign(&mut self, other: SmallNTTPoly) {
         for (x, y) in self.coeffs.iter_mut().zip(other.coeffs) {
-            *x = (*x + y) % MODULUS
+            *x = ((*x as u32 + y as u32) % MODULUS as u32) as u16
         }
     }
 }
@@ -243,7 +243,7 @@ impl Mul for SmallNTTPoly {
 }
 
 fn lift(a: i32) -> u16 {
-    (a % MODULUS as i32 + MODULUS as i32) as u16 % MODULUS
+    ((a % MODULUS as i32 + MODULUS as i32) % MODULUS as i32) as u16
 }
 
 #[cfg(test)]

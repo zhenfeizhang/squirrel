@@ -131,6 +131,8 @@ impl HomomorphicOneTimeSignature for HOTS {
             left += a * LargeNTTPoly::from(s)
         }
         let right = hm * LargeNTTPoly::from(&pk.v0) + LargeNTTPoly::from(&pk.v1);
+        // println!("left {:?}", left);
+        // println!("right {:?}", right);
         left == right
     }
 

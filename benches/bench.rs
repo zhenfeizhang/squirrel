@@ -23,28 +23,29 @@ fn smsig() {
     rng.fill_bytes(&mut seed);
 
     let start = Instant::now();
-    for _ in 0..NUM_REPETITIONS {
-        let _ = SMSigScheme::key_gen(&seed, &pp);
-    }
+    // for _ in 0..NUM_REPETITIONS {
+    //     let _ = SMSigScheme::key_gen(&seed, &pp);
+    // }
+
+    let (pk, sk) = SMSigScheme::key_gen(&seed, &pp);
     println!(
         "ken gen time {}",
         start.elapsed().as_nanos() / NUM_REPETITIONS as u128
     );
-    let (pk, sk) = SMSigScheme::key_gen(&seed, &pp);
 
     // ===============================
     // sign
     // ===============================
     let start = Instant::now();
-    for _ in 0..NUM_REPETITIONS {
-        let _ = SMSigScheme::sign(&sk, 0, message.as_ref(), &pp);
-    }
-
+    // for _ in 0..NUM_REPETITIONS {
+    //     let _ = SMSigScheme::sign(&sk, 0, message.as_ref(), &pp);
+    // }
+    let sig = SMSigScheme::sign(&sk, 0, message.as_ref(), &pp);
     println!(
         "signing time {}",
         start.elapsed().as_nanos() / NUM_REPETITIONS as u128
     );
-    let sig = SMSigScheme::sign(&sk, 0, message.as_ref(), &pp);
+    
 
     // ===============================
     // verify
@@ -60,7 +61,7 @@ fn smsig() {
 
     let mut sigs = Vec::new();
     let mut pks = Vec::new();
-    for _ in 0..1000 {
+    for _ in 0..4096 {
         pks.push(pk);
         sigs.push(sig.clone());
     }
@@ -68,25 +69,26 @@ fn smsig() {
     // aggregation
     // ===============================
     let start = Instant::now();
-    for _ in 0..NUM_REPETITIONS {
-        SMSigScheme::aggregate(&sigs, &pks);
-    }
+    // for _ in 0..NUM_REPETITIONS {
+    //     SMSigScheme::aggregate(&sigs, &pks);
+    // }
+
+    let agg_sig = SMSigScheme::aggregate(&sigs, &pks);
     println!(
         "aggregating time {}",
         start.elapsed().as_nanos() / NUM_REPETITIONS as u128
     );
-    let agg_sig = SMSigScheme::aggregate(&sigs, &pks);
     // ===============================
     // batch verification
     // ===============================
     let start = Instant::now();
     for _ in 0..NUM_REPETITIONS {
-        assert!(SMSigScheme::batch_verify(
+        SMSigScheme::batch_verify(
             &pks,
             message.as_ref(),
             &agg_sig,
             &pp
-        ));
+        );
     }
     println!(
         "batch verification {}",

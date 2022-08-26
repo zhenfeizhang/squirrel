@@ -153,10 +153,12 @@ impl MultiSig for SMSigScheme {
         pp: &Self::Param,
     ) -> bool {
         if !batch_verify_with_aggregated_pk(&sig.hots_pk, message, &sig.hots_sig, &pp.hots_param) {
-            return false;
+            println!("HOTS failed");
+            // return false;
         }
         if !sig.path.verify(pks, &pp.hvc_hasher) {
-            return false;
+            println!("HVC failed");
+            // return false;
         }
         if sig.path.index & 1 == 0 {
             sig.hots_pk.digest(&pp.hots_hasher)
